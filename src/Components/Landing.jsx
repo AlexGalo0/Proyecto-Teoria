@@ -63,7 +63,7 @@ export const Landing = () => {
 				/>
 			</div>
 			<div class='flex justify-center '>
-				<p class='text-center pl-12 pr-12'>
+				<p class='text-center pl-12 pr-12 pb-4'>
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
 					laudantium consequatur doloremque, fuga ipsum aliquam praesentium
 					necessitatibus rem exercitationem dolorem saepe maxllat culpa ad ipsum
