@@ -71,14 +71,14 @@ export const Simulador = () => {
       CantidadAnios,
     } = inputValues;
 
-    const poblacionInicial = poblacionInicialData; // Cambia esto a tu población inicial deseada
+    const poblacionInicial = parseInt(poblacionInicialData); // Cambia esto a tu población inicial deseada
     let poblacion = [poblacionInicial];
     let crecimiento = [];
 
     for (let i = 1; i <= CantidadAnios; i++) {
       const nuevoCrecimiento =
-        (parseFloat(TasaNatalidad) - parseFloat(TasaMortalidad) + parseFloat(TasaMigracion)) *
-        poblacion[i - 1];
+        Math.ceil((parseFloat(TasaNatalidad) - parseFloat(TasaMortalidad) + parseFloat(TasaMigracion)) *
+        poblacion[i - 1]);
 
       crecimiento.push(nuevoCrecimiento);
       poblacion.push(poblacion[i - 1] + nuevoCrecimiento);

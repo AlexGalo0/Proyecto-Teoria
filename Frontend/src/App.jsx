@@ -16,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainInfoGeneral />} />
           <Route path="/Simulador" element={<Simulador />} />
+          
         </Routes>
 
         {/* Footer siempre visible */}
