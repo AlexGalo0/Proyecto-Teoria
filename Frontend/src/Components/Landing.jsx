@@ -1,4 +1,4 @@
-import React from "react";
+
 
 export const Landing = () => {
 	return (
@@ -17,17 +17,7 @@ export const Landing = () => {
 				/>
 				<div className='pt-16 '>
 					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.libero
-						laboriosam facilis praesentium laborum impedit quo odit, dolorem
-						suscipit enim inventore maiores! Perspiciatis iusto tempore minima
-						consectetur nihil. Iure quas modi, placeat aut alias minus. Tempore
-						ad molestias, rerum earum atque. Ipsam laborum tenetur nobis enim
-						similique excepturi accusamus fugit nostrum voluptatem sit! Iure
-						porro quae quis libero exercitationem explicabo dignissimos tempore
-						eligendi velit unde ipsa sapiente ducimus tempora nulla esse ndi
-						tenetur nobis error, nemo omnis numquam ad aperiam nisi velit, eius
-						possimus quia, totam illum itaque molestiae. Adipisci commodi ut
-						laudantium, odit dolores dolorum natus?
+					Poder anticipar y gestionar los cambios demográficos es muy importante, en América latina y el caribe se experimentó un aumento de población de 168.3 millones en 1950 a 660.3 millones en 2022 lo que representa el 8.3% de la población mundial, pero con la pandemia estas proyecciones han disminuido por la caída de la fecundidad. En cuanto a la migración América Latina ha presentado altos niveles de migración entre países de la región e, igualmente, hacia América del Norte y Europa. Entre las razones para migrar más importantes podemos mencionar la búsqueda de mejores salarios, el alto nivel de desempleo, la inestabilidad política y la corrupción. Países como México en 2020 se posicionó como el país de América Latina con el mayor número de emigrantes internacionales, con casi 11,2 millones en 2020.
 					</p>
 				</div>
 			</div>
@@ -35,17 +25,7 @@ export const Landing = () => {
 			<div className='flex'>
 				<div className='pt-16 pl-4'>
 					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.libero
-						laboriosam facilis praesentium laborum impedit quo odit, dolorem
-						suscipit enim inventore maiores! Perspiciatis iusto tempore minima
-						consectetur nihil. Iure quas modi, placeat aut alias minus. Tempore
-						ad molestias, rerum earum atque. Ipsam laborum tenetur nobis enim
-						similique excepturi accusamus fugit nostrum voluptatem sit! Iure
-						porro quae quis libero exercitationem explicabo dignissimos tempore
-						eligendi velit unde ipsa sapiente ducimus tempora nulla esse ndi
-						tenetur nobis error, nemo omnis numquam ad aperiam nisi velit, eius
-						possimus quia, totam illum itaque molestiae. Adipisci commodi ut
-						laudantium, odit dolores dolorum natus?
+					Poder anticipar y gestionar los cambios demográficos es muy importante, en América latina y el caribe se experimentó un aumento de población de 168.3 millones en 1950 a 660.3 millones en 2022 lo que representa el 8.3% de la población mundial, pero con la pandemia estas proyecciones han disminuido por la caída de la fecundidad. En cuanto a la migración América Latina ha presentado altos niveles de migración entre países de la región e, igualmente, hacia América del Norte y Europa. Entre las razones para migrar más importantes podemos mencionar la búsqueda de mejores salarios, el alto nivel de desempleo, la inestabilidad política y la corrupción. Países como México en 2020 se posicionó como el país de América Latina con el mayor número de emigrantes internacionales, con casi 11,2 millones en 2020.
 					</p>
 				</div>
 				<img
@@ -62,21 +42,12 @@ export const Landing = () => {
 					className='object-cover h-[600px] p-7'
 				/>
 			</div>
-			<div class='flex justify-center '>
-				<p class='text-center pl-12 pr-12 pb-4'>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
-					laudantium consequatur doloremque, fuga ipsum aliquam praesentium
-					necessitatibus rem exercitationem dolorem saepe maxllat culpa ad ipsum
-					quis nulla quos labore odio perferendis! Est, ab! 	Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
-					laudantium consequatur doloremque, fuga ipsum aliquam praesentium
-					necessitatibus rem exercitationem dolorem saepe maxllat culpa ad ipsum
-					quis nulla quos labore odio perferendis! Est, ab!	Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
-					laudantium consequatur doloremque, fuga ipsum aliquam praesentium
-					necessitatibus rem exercitationem dolorem saepe maxllat culpa ad ipsum
-					quis nulla quos labore odio perferendis! Est, ab!	Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
-					laudantium consequatur doloremque, fuga ipsum aliquam praesentium
-					necessitatibus rem exercitationem dolorem saepe maxllat culpa ad ipsum
-					quis nulla quos labore odio perferendis! Est, ab!
+			<div className='flex justify-center '>
+				<p className='text-center pl-12 pr-12 pb-4'>
+					
+Durante el año 2020 y en la actualidad, la pandemia de COVID-19 ha generado un gran impacto sobre la migración en la región. Las tendencias en la movilidad, retorno de migrantes, aprehensiones en las fronteras de México y los Estados Unidos y las emisiones de visas se han visto impactadas por razón de la pandemia y las restricciones de movimiento como medida de contención sanitaria.
+Latinoamérica registra una cantidad de emigrantes internacionales para el 2020 que es realmente muy significativo esto con relación al crecimiento poblacional y es que en el 2020 México se posicionó como el país de América Latina con el mayor número de emigrantes internacionales, con casi 11,2 millones en 2020. Venezuela y Colombia ocuparon el segundo y tercer lugar, con más de cinco y tres millones, respectivamente. Haití es el país caribeño donde más personas han emigrado, rozando los 1,8 millones de ciudadanos con residencia en el exterior en 2020.
+
 				</p>
 			</div>
 		</>
