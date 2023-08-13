@@ -16,7 +16,7 @@ export const Simulador = () => {
     setSelectedOption(value);
 
     try {
-      const response = await fetch("http://localhost:8080/info", {
+      const response = await fetch("http://localhost:8000/info", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,19 +63,21 @@ export const Simulador = () => {
   };
 
   const Calculos = () => {
-    const { TasaNatalidad, TasaMortalidad, TasaMigracion, CantidadAnios } =
-      inputValues;
+    const {
+      TasaNatalidad,
+      TasaMortalidad,
+      TasaMigracion,
+      CantidadAnios,
+    } = inputValues;
 
-    const poblacionInicial = poblacionInicialData; // Cambia esto a tu población inicial deseada
+    const poblacionInicial = parseInt(poblacionInicialData); // Cambia esto a tu población inicial deseada
     let poblacion = [poblacionInicial];
     let crecimiento = [];
 
     for (let i = 1; i <= CantidadAnios; i++) {
       const nuevoCrecimiento =
-        (parseFloat(TasaNatalidad) -
-          parseFloat(TasaMortalidad) +
-          parseFloat(TasaMigracion)) *
-        poblacion[i - 1];
+        Math.ceil((parseFloat(TasaNatalidad) - parseFloat(TasaMortalidad) + parseFloat(TasaMigracion)) *
+        poblacion[i - 1]);
 
       crecimiento.push(nuevoCrecimiento);
       poblacion.push(poblacion[i - 1] + nuevoCrecimiento);
@@ -114,7 +116,7 @@ export const Simulador = () => {
    
         {" "}
         {/* General */}
-        <div className="bg-[#73b1f3] max-w-[360px] mb-8">
+        <div className="bg-[#73b1f3] max-w-[360px] mb-8 rounded-lg">
           {" "}
          
           {/* Formulario */}
@@ -128,6 +130,7 @@ export const Simulador = () => {
                   Selecciona el país:
                 </label>
                 <select
+                  className="rounded"
                   id="selectOption"
                   name="selectOption"
                   value={selectedOption}
@@ -155,7 +158,7 @@ export const Simulador = () => {
                   name="TasaNatalidad"
                   value={inputValues.TasaNatalidad}
                   onChange={InputChange}
-                  className="w-[100px] "
+                  className="w-[100px] rounded"
                   placeholder="1.2"
                 />
               </div>
@@ -172,7 +175,7 @@ export const Simulador = () => {
                   name="TasaMortalidad"
                   value={inputValues.TasaMortalidad}
                   onChange={InputChange}
-                  className="w-[100px] "
+                  className="w-[100px] rounded"
                   placeholder="0.7"
                 />
               </div>
@@ -189,7 +192,7 @@ export const Simulador = () => {
                   name="TasaMigracion"
                   value={inputValues.TasaMigracion}
                   onChange={InputChange}
-                  className="w-[100px] "
+                  className="w-[100px] rounded"
                   placeholder="0.31"
                 />
               </div>
@@ -206,16 +209,16 @@ export const Simulador = () => {
                   name="CantidadAnios"
                   value={inputValues.CantidadAnios}
                   onChange={InputChange}
-                  className="w-[100px] "
+                  className="w-[100px] rounded"
                   placeholder="5"
                 />
               </div>
-              {/* <div className="flex  justify-end">
-                <button type="button" onClick={Calculos} className="bg-cyan-100 mb-5">
+              { <div className="flex  justify-end">
+                <button type="button" onClick={Calculos} className="bg-cyan-100 mb-5 rounded">
                   Calcular Crecimiento
                 </button>
               </div>
-               */}
+               }
             </div>
             
           </form>
@@ -223,7 +226,7 @@ export const Simulador = () => {
         </div>
         <div className="max-w-[350px]">
 
-        <img src="https://th.bing.com/th/id/OIP.tkYza1sR2kW89yiRLt85xgHaEp?pid=ImgDet&rs=1" alt="" />
+        <img src="https://th.bing.com/th/id/OIP.tkYza1sR2kW89yiRLt85xgHaEp?pid=ImgDet&rs=1" alt="" className="rounded-lg" />
         </div>
       </div>
 
