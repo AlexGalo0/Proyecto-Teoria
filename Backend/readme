@@ -1,0 +1,8 @@
+- Para poder ejecutar el servidor backend hace falta instalar las dependencias desde la consola de comandos en el directorio backend de la forma  "npm install"
+- Se debe crear un archivo .env en la ruta /Backend/ donde se ingresaran las credenciales
+PORT = 8000
+USER = "usuario de mssql server managment studio"
+PASSWORD = "contraseña de mssql server managment studio"
+SERVER = "nuestra computadora o servidor donde correremos el servidor"
+DATABASE = "nuestra base de datos a la que haremos la conexion"
+- Para correr el proyecto se debe abrir una terminal y escribir "npm run dev".
