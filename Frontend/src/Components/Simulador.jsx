@@ -97,14 +97,7 @@ export const Simulador = () => {
         </div>
         <div className="flex justify-center">
           <p className="font-bold px-8 pb-2">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam in
-            eligendi dolor nisi est quisquam accusantium rem, voluptates
-            distinctio ullam adipisci suscipit doloribus, mollitia, quos itaque
-            libero velit minus. Non! Ipsa necessitatibus quos veritatis illum
-            mollitia tenetur itaque sint veniam aperiam excepturi provident quia
-            praesentium autem exercitationem molestiae asperiores inventore
-            alias accusamus, voluptates impedit atque facere? Ipsa quasi commodi
-            quo!
+          El uso de este simulador es muy sencillo, una vez seleccionas el país de Latinoamérica que quieres calcular su crecimiento poblacional y migración, te traerá datos actuales de su tasa de natalidad, tasa de mortalidad y tasa de migración.  Estas tasas pueden ser manipuladas en sus valores para poder calcular otras proyecciones en la cantidad de años a futuro que desees y lo que hará será mostrarte una gráfica con estas proyecciones en tiempo real mientras vas cambiando sus valores.
           </p>
         </div>
       </div>
@@ -130,7 +123,7 @@ export const Simulador = () => {
                   Selecciona el país:
                 </label>
                 <select
-                  className="rounded"
+                  className="rounded text-center"
                   id="selectOption"
                   name="selectOption"
                   value={selectedOption}
@@ -158,7 +151,7 @@ export const Simulador = () => {
                   name="TasaNatalidad"
                   value={inputValues.TasaNatalidad}
                   onChange={InputChange}
-                  className="w-[100px] rounded"
+                  className="w-[100px] rounded text-center"
                   placeholder="1.2"
                 />
               </div>
@@ -169,13 +162,13 @@ export const Simulador = () => {
                 >
                   Tasa mortalidad:
                 </label>
-                <input
+                <input 
                   type="number"
                   id="TasaMortalidad"
                   name="TasaMortalidad"
                   value={inputValues.TasaMortalidad}
                   onChange={InputChange}
-                  className="w-[100px] rounded"
+                  className="w-[100px] rounded text-center"
                   placeholder="0.7"
                 />
               </div>
@@ -192,7 +185,7 @@ export const Simulador = () => {
                   name="TasaMigracion"
                   value={inputValues.TasaMigracion}
                   onChange={InputChange}
-                  className="w-[100px] rounded"
+                  className="w-[100px] rounded text-center"
                   placeholder="0.31"
                 />
               </div>
@@ -209,7 +202,7 @@ export const Simulador = () => {
                   name="CantidadAnios"
                   value={inputValues.CantidadAnios}
                   onChange={InputChange}
-                  className="w-[100px] rounded"
+                  className="w-[100px] rounded text-center"
                   placeholder="5"
                 />
               </div>
