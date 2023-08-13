@@ -1,11 +1,10 @@
-import React from "react";
 
 export const MainInfoGeneral = () => {
 	return (
 		<>
 			<div className='flex justify-center pt-5'>
 				<h1 className='text-4xl font-bold'>
-				Indices de Migracion en Latinoamerica según Statista
+				Índices de Migración en Latinoamérica según Statista
 				</h1>
 			</div>
 
@@ -13,7 +12,7 @@ export const MainInfoGeneral = () => {
 				<img
 					src='https://images.pexels.com/photos/590037/pexels-photo-590037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
 					alt=''
-					className='object-cover h-[700px] p-7 '
+					className='object-cover h-[400px] p-7 '
 				/>
 				<div className='pt-16 '>
 					<p>
@@ -35,7 +34,7 @@ A fines de 2019, había un estimado de 4,8 millones de migrantes venezolanos, in
 				<img
 					src='https://images.pexels.com/photos/590020/pexels-photo-590020.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
 					alt=''
-					className='object-cover h-[600px] p-7'
+					className='object-cover h-[400px] p-7'
 				/>
 			</div>
 			<div className='flex justify-center '>

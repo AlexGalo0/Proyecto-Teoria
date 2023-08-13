@@ -5,15 +5,15 @@ export const Landing = () => {
 		<>
 			<div className='flex justify-center pt-5'>
 				<h1 className='text-4xl font-bold'>
-					Crecimiento de Población y migración en latinoamerica (CPM LATAM){" "}
+				Crecimiento de Población y Migración en Latinoamérica (CPM LATAM)
 				</h1>
 			</div>
 
-			<div className='flex'>
+			<div className='flex rounded-full'>
 				<img
-					src='https://images.pexels.com/photos/106344/pexels-photo-106344.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+					src='https://cdn.statcdn.com/Statistic/1065000/1067800-blank-754.png'
 					alt=''
-					className='object-cover h-[400px] p-7 '
+					className='object-cover h-[400px] p-7'
 				/>
 				<div className='pt-16 '>
 					<p>
@@ -29,7 +29,7 @@ export const Landing = () => {
 					</p>
 				</div>
 				<img
-					src='https://images.pexels.com/photos/106344/pexels-photo-106344.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+					src='https://www.researchgate.net/publication/343218190/figure/fig4/AS:917360387055618@1595727168553/Figura-2-Rutas-de-migracion-desde-Latinoamerica-y-estimacion-del-numero-total-de.png'
 					alt=''
 					className='object-cover h-[400px] p-7 rounded-full'
 				/>
