@@ -1,4 +1,4 @@
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export const Simulador = () => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -10,7 +10,6 @@ export const Simulador = () => {
     TasaMigracion: "",
     CantidadAnios: "",
   });
-
 
   const SelectChange = async (event) => {
     const value = event.target.value;
@@ -32,7 +31,7 @@ export const Simulador = () => {
           TasaMortalidad: data.TasaMortalidad.toString(),
           TasaMigracion: data.TasaMigracion.toString(),
         });
-        setPoblacionInicial(data.PoblacionTotal)
+        setPoblacionInicial(data.PoblacionTotal);
       } else {
         console.error("Error fetching country data");
       }
@@ -44,12 +43,12 @@ export const Simulador = () => {
   useEffect(() => {
     // Realizar una solicitud a tu API para obtener los nombres de los países
     fetch("http://localhost:8080/paises")
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         // Supongamos que el servidor responde con un array de nombres de países
         setPaises(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching countries:", error);
       });
   }, []);
@@ -90,67 +89,140 @@ export const Simulador = () => {
 
   return (
     <>
-      <form>
-      <div>
-          <label htmlFor="selectOption">Selecciona el país:</label>
-          <select
-            id="selectOption"
-            name="selectOption"
-            value={selectedOption}
-            onChange={SelectChange}
-          >
-            <option value="">Selecciona...</option>
-            {paises.map((pais, index) => (
-              <option key={index} value={pais}>
-                {pais}
-              </option>
-            ))}
-          </select>
+      <div className="grid-rows-2">
+        <div className="flex justify-center pt-4">
+          <h1 className="font-bold text-3xl text-[#7895CB] ">
+            Instrucciones de Uso
+          </h1>
         </div>
-        <div>
-          <label htmlFor="TasaNatalidad">Tasa natalidad:</label>
-          <input
-            type="text"
-            id="TasaNatalidad"
-            name="TasaNatalidad"
-            value={inputValues.TasaNatalidad}
-            onChange={InputChange}
-          />
+        <div className="flex justify-center">
+          <p className="font-bold px-8 pb-2">
+          El uso de este simulador es muy sencillo, una vez seleccionas el país de Latinoamérica que quieres calcular su crecimiento poblacional y migración, te traerá datos actuales de su tasa de natalidad, tasa de mortalidad y tasa de migración.  Estas tasas pueden ser manipuladas en sus valores para poder calcular otras proyecciones en la cantidad de años a futuro que desees y lo que hará será mostrarte una gráfica con estas proyecciones en tiempo real mientras vas cambiando sus valores.
+          </p>
         </div>
-        <div>
-          <label htmlFor="TasaMortalidad">Tasa mortalidad:</label>
-          <input
-            type="text"
-            id="TasaMortalidad"
-            name="TasaMortalidad"
-            value={inputValues.TasaMortalidad}
-            onChange={InputChange}
-          />
+      </div>
+ 
+
+  
+      <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
+   
+   
+        {" "}
+        {/* General */}
+        <div className="bg-[#73b1f3] max-w-[360px] mb-8 rounded-lg">
+          {" "}
+         
+          {/* Formulario */}
+          <form>
+            <div className="pt-6 px-2 ">
+              <div className="flex justify-between ">
+                <label
+                  htmlFor="selectOption"
+                  className="font-bold text-white text-xl"
+                >
+                  Selecciona el país:
+                </label>
+                <select
+                  className="rounded text-center"
+                  id="selectOption"
+                  name="selectOption"
+                  value={selectedOption}
+                  onChange={SelectChange}
+                >
+                  <option value="">Países</option>
+                  {paises.map((pais, index) => (
+                    <option key={index} value={pais}>
+                      {pais}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex justify-between pt-4">
+                <label
+                  htmlFor="TasaNatalidad"
+                  className="font-bold text-white text-xl"
+                >
+                  Tasa natalidad:
+                </label>
+                <input
+                  type="number"
+                  id="TasaNatalidad"
+                  name="TasaNatalidad"
+                  value={inputValues.TasaNatalidad}
+                  onChange={InputChange}
+                  className="w-[100px] rounded text-center"
+                  placeholder="1.2"
+                />
+              </div>
+              <div className="flex justify-between pt-4">
+                <label
+                  htmlFor="TasaMortalidad"
+                  className="font-bold text-white text-xl"
+                >
+                  Tasa mortalidad:
+                </label>
+                <input 
+                  type="number"
+                  id="TasaMortalidad"
+                  name="TasaMortalidad"
+                  value={inputValues.TasaMortalidad}
+                  onChange={InputChange}
+                  className="w-[100px] rounded text-center"
+                  placeholder="0.7"
+                />
+              </div>
+              <div className="flex justify-between pt-4">
+                <label
+                  htmlFor="TasaMigracion"
+                  className="font-bold text-white text-xl"
+                >
+                  Tasa de migración:
+                </label>
+                <input
+                  type="number"
+                  id="TasaMigracion"
+                  name="TasaMigracion"
+                  value={inputValues.TasaMigracion}
+                  onChange={InputChange}
+                  className="w-[100px] rounded text-center"
+                  placeholder="0.31"
+                />
+              </div>
+              <div className="flex justify-between pt-4 pb-3  ">
+                <label
+                  htmlFor="CantidadAnios"
+                  className="font-bold text-white text-xl"
+                >
+                  Cantidad de años:
+                </label>
+                <input
+                  type="number"
+                  id="CantidadAnios"
+                  name="CantidadAnios"
+                  value={inputValues.CantidadAnios}
+                  onChange={InputChange}
+                  className="w-[100px] rounded text-center"
+                  placeholder="5"
+                />
+              </div>
+              { <div className="flex  justify-end">
+                <button type="button" onClick={Calculos} className="bg-cyan-100 mb-5 rounded">
+                  Calcular Crecimiento
+                </button>
+              </div>
+               }
+            </div>
+            
+          </form>
+          
         </div>
-        <div>
-          <label htmlFor="TasaMigracion">Tasa de migración:</label>
-          <input
-            type="text"
-            id="TasaMigracion"
-            name="TasaMigracion"
-            value={inputValues.TasaMigracion}
-            onChange={InputChange}
-          />
+        <div className="max-w-[350px]">
+
+        <img src="https://th.bing.com/th/id/OIP.tkYza1sR2kW89yiRLt85xgHaEp?pid=ImgDet&rs=1" alt="" className="rounded-lg" />
         </div>
-        <div>
-          <label htmlFor="CantidadAnios">Cantidad de años:</label>
-          <input
-            type="text"
-            id="CantidadAnios"
-            name="CantidadAnios"
-            value={inputValues.CantidadAnios}
-            onChange={InputChange}
-          />
-        </div>
-        <button type="button" onClick={Calculos}>
-          Calcular Crecimiento
-        </button>
-      </form>
+      </div>
+
     </>
   );
 };
