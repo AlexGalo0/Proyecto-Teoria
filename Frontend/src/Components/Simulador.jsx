@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
+import Chart from 'chart.js/auto';
+
 
 export const Simulador = () => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -10,6 +12,10 @@ export const Simulador = () => {
     TasaMigracion: "",
     CantidadAnios: "",
   });
+  const chartRef = useRef(null);
+  const [chartInstance, setChartInstance] = useState(null);
+    const barChartRef = useRef(null);
+  const [barChartInstance, setBarChartInstance] = useState(null);
 
   const SelectChange = async (event) => {
     const value = event.target.value;
@@ -70,7 +76,7 @@ export const Simulador = () => {
       CantidadAnios,
     } = inputValues;
 
-    const poblacionInicial = parseInt(poblacionInicialData); // Cambia esto a tu población inicial deseada
+    const poblacionInicial = parseInt(poblacionInicialData); // población inicial deseada
     let poblacion = [poblacionInicial];
     let crecimiento = [];
 
@@ -83,6 +89,98 @@ export const Simulador = () => {
       poblacion.push(poblacion[i - 1] + nuevoCrecimiento);
     }
 
+    
+    if (chartInstance) {
+    chartInstance.destroy();
+    }
+
+    if (barChartInstance) {
+      barChartInstance.destroy();
+    }
+
+    if (barChartRef.current) {
+      const barCtx = barChartRef.current.getContext("2d");
+      const newBarChartInstance = new Chart(barCtx, {
+        type: "bar",
+        data: {
+          labels: Array.from({ length: CantidadAnios }, (_, i) => 2023 + i),
+          datasets: [
+            {
+              label: "Población por Año",
+              data: poblacion,
+              backgroundColor: "rgba(75, 192, 192, 0.5)",
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: false,
+          scales: {
+            x: {
+              display: true,
+              title: {
+                display: true,
+                text: "Años",
+              },
+            },
+            y: {
+              display: true,
+              title: {
+                display: true,
+                text: "Población",
+              },
+            },
+          },
+        },
+      });
+      setBarChartInstance(newBarChartInstance);
+    }
+  
+
+    const ctx = chartRef.current.getContext("2d");
+     const newChartInstance = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: Array.from({ length: CantidadAnios }, (_, i) => 2023 + i),
+        datasets: [
+          {
+            label: "Población",
+            data: poblacion,
+            borderColor: "rgba(75, 192, 192, 1)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            borderWidth: 2,
+          },
+          {
+            label: "Crecimiento",
+            data: crecimiento,
+            borderColor: "rgba(255, 99, 132, 1)",
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            borderWidth: 2,
+          },
+        ],
+      },
+      options: {
+        responsive: false,
+        scales: {
+          x: {
+            display: true,
+            title: {
+              display: true,
+              text: "Años",
+            },
+          },
+          y: {
+            display: true,
+            title: {
+              display: true,
+              text: "Cantidad",
+            },
+          },
+        },
+      },
+    });
+    setChartInstance(newChartInstance);
     console.log("Crecimiento:", crecimiento);
     console.log("Población:", poblacion);
   };
@@ -217,12 +315,14 @@ export const Simulador = () => {
           </form>
           
         </div>
-        <div className="max-w-[350px]">
-
-        <img src="https://th.bing.com/th/id/OIP.tkYza1sR2kW89yiRLt85xgHaEp?pid=ImgDet&rs=1" alt="" className="rounded-lg" />
-        </div>
+        <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
+        <canvas ref={chartRef} width="900" height="400"></canvas>
       </div>
 
+      </div>
+      <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
+        <canvas ref={barChartRef} width="900" height="900"></canvas>
+      </div>
     </>
   );
 };
