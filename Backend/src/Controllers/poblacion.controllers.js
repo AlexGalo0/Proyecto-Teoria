@@ -27,12 +27,11 @@ export const datosPaises = async (req, res) => {
 
 }
 
-export const migracioPaises = async (req, res) => {
-
+export const migracionPaises = async (req, res) => {
     const pool = await getConnection();
     const result = await pool.request().query(`select 
 	Pais, round((PoblacionTotal*(1+TasaMigracion)), 0) 'Cantidad de migrantes', PoblacionTotal
-from Poblacion where Anio = 2022`)
+from Poblacion where Anio = year(getdate())-1`)
     res.status(200).json(result.recordset)
 }
 
