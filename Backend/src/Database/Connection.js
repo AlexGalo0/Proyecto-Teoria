@@ -14,7 +14,6 @@ const dbsettings={
 export async function getConnection(){
     try{
         const pool = await sql.connect(dbsettings);
-        console.log("VAMOS")
         return pool;
     }catch(error){
         console.error(error);

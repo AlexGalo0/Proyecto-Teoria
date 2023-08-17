@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
+import Chart from 'chart.js/auto';
+
 
 export const Simulador = () => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -10,13 +12,17 @@ export const Simulador = () => {
     TasaMigracion: "",
     CantidadAnios: "",
   });
+  const chartRef = useRef(null);
+  const [chartInstance, setChartInstance] = useState(null);
+    const barChartRef = useRef(null);
+  const [barChartInstance, setBarChartInstance] = useState(null);
 
   const SelectChange = async (event) => {
     const value = event.target.value;
     setSelectedOption(value);
 
     try {
-      const response = await fetch("http://localhost:8000/info", {
+      const response = await fetch("http://localhost:8080/info", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +48,7 @@ export const Simulador = () => {
 
   useEffect(() => {
     // Realizar una solicitud a tu API para obtener los nombres de los países
-    fetch("http://localhost:8000/paises")
+    fetch("http://localhost:8080/paises")
       .then((response) => response.json())
       .then((data) => {
         // Supongamos que el servidor responde con un array de nombres de países
@@ -70,7 +76,7 @@ export const Simulador = () => {
       CantidadAnios,
     } = inputValues;
 
-    const poblacionInicial = parseInt(poblacionInicialData); // Cambia esto a tu población inicial deseada
+    const poblacionInicial = parseInt(poblacionInicialData); // población inicial deseada
     let poblacion = [poblacionInicial];
     let crecimiento = [];
 
@@ -83,6 +89,98 @@ export const Simulador = () => {
       poblacion.push(poblacion[i - 1] + nuevoCrecimiento);
     }
 
+    
+    if (chartInstance) {
+    chartInstance.destroy();
+    }
+
+    if (barChartInstance) {
+      barChartInstance.destroy();
+    }
+
+    if (barChartRef.current) {
+      const barCtx = barChartRef.current.getContext("2d");
+      const newBarChartInstance = new Chart(barCtx, {
+        type: "bar",
+        data: {
+          labels: Array.from({ length: CantidadAnios }, (_, i) => 2023 + i),
+          datasets: [
+            {
+              label: "Población por Año",
+              data: poblacion,
+              backgroundColor: "rgba(75, 192, 192, 0.5)",
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: false,
+          scales: {
+            x: {
+              display: true,
+              title: {
+                display: true,
+                text: "Años",
+              },
+            },
+            y: {
+              display: true,
+              title: {
+                display: true,
+                text: "Población",
+              },
+            },
+          },
+        },
+      });
+      setBarChartInstance(newBarChartInstance);
+    }
+  
+
+    const ctx = chartRef.current.getContext("2d");
+     const newChartInstance = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: Array.from({ length: CantidadAnios }, (_, i) => 2023 + i),
+        datasets: [
+          {
+            label: "Población",
+            data: poblacion,
+            borderColor: "rgba(75, 192, 192, 1)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            borderWidth: 2,
+          },
+          {
+            label: "Crecimiento",
+            data: crecimiento,
+            borderColor: "rgba(255, 99, 132, 1)",
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            borderWidth: 2,
+          },
+        ],
+      },
+      options: {
+        responsive: false,
+        scales: {
+          x: {
+            display: true,
+            title: {
+              display: true,
+              text: "Años",
+            },
+          },
+          y: {
+            display: true,
+            title: {
+              display: true,
+              text: "Cantidad",
+            },
+          },
+        },
+      },
+    });
+    setChartInstance(newChartInstance);
     console.log("Crecimiento:", crecimiento);
     console.log("Población:", poblacion);
   };
@@ -97,14 +195,7 @@ export const Simulador = () => {
         </div>
         <div className="flex justify-center">
           <p className="font-bold px-8 pb-2">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam in
-            eligendi dolor nisi est quisquam accusantium rem, voluptates
-            distinctio ullam adipisci suscipit doloribus, mollitia, quos itaque
-            libero velit minus. Non! Ipsa necessitatibus quos veritatis illum
-            mollitia tenetur itaque sint veniam aperiam excepturi provident quia
-            praesentium autem exercitationem molestiae asperiores inventore
-            alias accusamus, voluptates impedit atque facere? Ipsa quasi commodi
-            quo!
+          El uso de este simulador es muy sencillo, una vez seleccionas el país de Latinoamérica que quieres calcular su crecimiento poblacional y migración, te traerá datos actuales de su tasa de natalidad, tasa de mortalidad y tasa de migración.  Estas tasas pueden ser manipuladas en sus valores para poder calcular otras proyecciones en la cantidad de años a futuro que desees y lo que hará será mostrarte una gráfica con estas proyecciones en tiempo real mientras vas cambiando sus valores.
           </p>
         </div>
       </div>
@@ -130,7 +221,7 @@ export const Simulador = () => {
                   Selecciona el país:
                 </label>
                 <select
-                  className="rounded"
+                  className="rounded text-center"
                   id="selectOption"
                   name="selectOption"
                   value={selectedOption}
@@ -158,7 +249,7 @@ export const Simulador = () => {
                   name="TasaNatalidad"
                   value={inputValues.TasaNatalidad}
                   onChange={InputChange}
-                  className="w-[100px] rounded"
+                  className="w-[100px] rounded text-center"
                   placeholder="1.2"
                 />
               </div>
@@ -169,13 +260,13 @@ export const Simulador = () => {
                 >
                   Tasa mortalidad:
                 </label>
-                <input
+                <input 
                   type="number"
                   id="TasaMortalidad"
                   name="TasaMortalidad"
                   value={inputValues.TasaMortalidad}
                   onChange={InputChange}
-                  className="w-[100px] rounded"
+                  className="w-[100px] rounded text-center"
                   placeholder="0.7"
                 />
               </div>
@@ -192,7 +283,7 @@ export const Simulador = () => {
                   name="TasaMigracion"
                   value={inputValues.TasaMigracion}
                   onChange={InputChange}
-                  className="w-[100px] rounded"
+                  className="w-[100px] rounded text-center"
                   placeholder="0.31"
                 />
               </div>
@@ -209,7 +300,7 @@ export const Simulador = () => {
                   name="CantidadAnios"
                   value={inputValues.CantidadAnios}
                   onChange={InputChange}
-                  className="w-[100px] rounded"
+                  className="w-[100px] rounded text-center"
                   placeholder="5"
                 />
               </div>
@@ -224,12 +315,14 @@ export const Simulador = () => {
           </form>
           
         </div>
-        <div className="max-w-[350px]">
-
-        <img src="https://th.bing.com/th/id/OIP.tkYza1sR2kW89yiRLt85xgHaEp?pid=ImgDet&rs=1" alt="" className="rounded-lg" />
-        </div>
+        <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
+        <canvas ref={chartRef} width="900" height="400"></canvas>
       </div>
 
+      </div>
+      <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
+        <canvas ref={barChartRef} width="900" height="900"></canvas>
+      </div>
     </>
   );
 };
