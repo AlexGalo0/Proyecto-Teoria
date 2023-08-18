@@ -20,18 +20,31 @@ export const datosPaises = async (req, res) => {
         .query(
             `SELECT TasaNatalidad, TasaMortalidad, TasaMigracion, PoblacionTotal
     FROM poblacion 
-    WHERE pais = @pais and anio=${Año.recordset[0].anio}
+    WHERE pais = @pais and anio=${Año.recordset[0].anio} 
     `)
 
     res.json(info.recordset[0])
 
 }
 
+export const poblacionPais = async (req,res)=>{
+    const { pais } = req.body;
+    const pool = await getConnection();
+    const Poblacion = await pool.request().input("pais", sql.VarChar, pais).query(`select PoblacionTotal, Anio from poblacion where pais=@pais order by Anio asc`)
+    res.json(Poblacion.recordset)
+}
+
 export const migracionPaises = async (req, res) => {
     const pool = await getConnection();
-    const result = await pool.request().query(`select 
-	Pais, round((PoblacionTotal*(1+TasaMigracion)), 0) 'Cantidad de migrantes', PoblacionTotal
-from Poblacion where Anio = year(getdate())-1`)
+    const result = await pool.request().query(`
+    SELECT 
+    Pais,
+    ROUND((PoblacionTotal * (1 + TasaMigracion)), 0) AS 'CantidadDeMigrantes',
+    PoblacionTotal
+    FROM Poblacion
+    WHERE Anio = YEAR(GETDATE()) - 1
+    ORDER BY 'CantidadDeMigrantes' DESC;
+`)
     res.status(200).json(result.recordset)
 }
 

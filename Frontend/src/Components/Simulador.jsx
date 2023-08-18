@@ -14,9 +14,12 @@ export const Simulador = () => {
   });
   const chartRef = useRef(null);
   const [chartInstance, setChartInstance] = useState(null);
-    const barChartRef = useRef(null);
+  const barChartRef = useRef(null);
   const [barChartInstance, setBarChartInstance] = useState(null);
-
+  const [migracionData, setMigracionData] = useState([]);
+  const barChartRefMigracion = useRef(null);
+  const [barChartInstanceMigracion, setBarChartInstanceMigracion] = useState(null);
+  
   const SelectChange = async (event) => {
     const value = event.target.value;
     setSelectedOption(value);
@@ -57,7 +60,78 @@ export const Simulador = () => {
       .catch((error) => {
         console.error("Error fetching countries:", error);
       });
-  }, []);
+
+
+      fetch("http://localhost:8080/migracion")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setMigracionData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching migration data:", error);
+      });
+  }, [selectedOption]);
+
+  useEffect(() => {
+
+    if (barChartInstanceMigracion) {
+      barChartInstanceMigracion.destroy();
+    }
+    if (migracionData.length > 0 && barChartRefMigracion.current) {
+      const barCtxMigracion = barChartRefMigracion.current.getContext("2d");
+      const migracionValues = migracionData.map((item) => Math.abs(item['CantidadDeMigrantes']));
+      const migracionLabels = migracionData.map((item) => item.Pais);
+      
+      const newBarChartInstanceMigracion = new Chart(barCtxMigracion, {
+        type: "bar",
+        data: {
+          labels: migracionLabels,
+          datasets: [
+            {
+              label: "Migración",
+              data: migracionValues,
+              backgroundColor: "rgba(255, 159, 64, 0.5)",
+              borderColor: "rgba(255, 159, 64, 1)",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: false,
+          indexAxis: 'y',
+          scales: {
+            x: {
+              display: true,
+              title: {
+                display: true,
+                text: "Países",
+              },
+            },
+            y: {
+              display: true,
+              title: {
+                display: true,
+                text: "Migración",
+              },
+            },
+
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: "Gráfico de Migración por País, año 2022",
+            },
+          },
+        },
+      });
+  
+      setBarChartInstanceMigracion(newBarChartInstanceMigracion);
+      console.log(migracionValues);
+    }
+  }, [migracionData]);
+
+  
 
   const InputChange = (event) => {
     const { name, value } = event.target;
@@ -76,66 +150,115 @@ export const Simulador = () => {
       CantidadAnios,
     } = inputValues;
 
-    const poblacionInicial = parseInt(poblacionInicialData); // población inicial deseada
-    let poblacion = [poblacionInicial];
-    let crecimiento = [];
-
+    const poblacionInicial = 1000//parseInt(poblacionInicialData); // población inicial deseada
+    const poblacion = [poblacionInicial];
+    const crecimiento = [];
+    
     for (let i = 1; i <= CantidadAnios; i++) {
       const nuevoCrecimiento =
         Math.ceil((parseFloat(TasaNatalidad) - parseFloat(TasaMortalidad) + parseFloat(TasaMigracion)) *
         poblacion[i - 1]);
-
+    
       crecimiento.push(nuevoCrecimiento);
-      poblacion.push(poblacion[i - 1] + nuevoCrecimiento);
+      if (i < CantidadAnios) {
+        poblacion.push(poblacion[i - 1] + nuevoCrecimiento);
+      }
     }
+    
+    
 
     
     if (chartInstance) {
     chartInstance.destroy();
     }
 
-    if (barChartInstance) {
-      barChartInstance.destroy();
-    }
+    fetch("http://localhost:8080/poblacion", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ pais: selectedOption }),
+  })
+    .then((response) => response.json())
+    .then((poblacionTotalRecordset) => {
+      console.log("Recordset de población total:", poblacionTotalRecordset);
 
-    if (barChartRef.current) {
-      const barCtx = barChartRef.current.getContext("2d");
-      const newBarChartInstance = new Chart(barCtx, {
-        type: "bar",
-        data: {
-          labels: Array.from({ length: CantidadAnios }, (_, i) => 2023 + i),
-          datasets: [
-            {
-              label: "Población por Año",
-              data: poblacion,
-              backgroundColor: "rgba(75, 192, 192, 0.5)",
-              borderColor: "rgba(75, 192, 192, 1)",
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          responsive: false,
-          scales: {
-            x: {
-              display: true,
-              title: {
+      // Crear un array con los años desde 2012 hasta 2022
+      const poblacionTotalAnios = Array.from({ length: 11 }, (_, i) => 2012 + i);
+
+      // Crear un array con la población total correspondiente a cada año
+      const poblacionTotalValues = poblacionTotalRecordset.map((item) => item.PoblacionTotal);
+
+      // Obtener población calculada desde 2023 hasta CantidadAnios
+      const poblacionCalculada = poblacion.slice(0); // Saltar el primer valor que ya es el inicial
+      const aniosCalculados = Array.from({ length: CantidadAnios}, (_, i) => 2023 + i);
+
+      // Combinar población total y población calculada para mostrar en el gráfico
+      const poblacionValues = [
+        ...poblacionTotalValues,
+        ...poblacionCalculada,
+      ];
+
+      const labels = [
+        ...poblacionTotalAnios.map((anio) => `Población Total ${anio}`),
+        ...aniosCalculados.map((anio) => `Población Calculada ${anio}`),
+      ];
+
+      // Mostrar los datos en el gráfico de barras
+      if (barChartInstance) {
+        barChartInstance.destroy();
+      }
+
+      if (barChartRef.current) {
+        const barCtx = barChartRef.current.getContext("2d");
+        const newBarChartInstance = new Chart(barCtx, {
+          type: "bar",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Población",
+                data: poblacionValues,
+                backgroundColor: "rgba(54, 162, 235, 0.5)", 
+                borderColor: "rgba(54, 162, 235, 1)", 
+                              
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: false,
+            scales: {
+              x: {
                 display: true,
-                text: "Años",
+                title: {
+                  display: true,
+                  text: "Años",
+                },
+              },
+              y: {
+                display: true,
+                title: {
+                  display: true,
+                  text: "Población",
+                },
               },
             },
-            y: {
-              display: true,
+            plugins: {
               title: {
                 display: true,
-                text: "Población",
+                text: "Gráfico de Población por año",
               },
             },
           },
-        },
-      });
-      setBarChartInstance(newBarChartInstance);
-    }
+          
+        });
+        setBarChartInstance(newBarChartInstance);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching population data:", error);
+    });
   
 
     const ctx = chartRef.current.getContext("2d");
@@ -178,11 +301,19 @@ export const Simulador = () => {
             },
           },
         },
+        plugins: {
+          title: {
+            display: true,
+            text: "Gráfico de crecimiento y población por año",
+          },
+        },
       },
+      
     });
     setChartInstance(newChartInstance);
     console.log("Crecimiento:", crecimiento);
     console.log("Población:", poblacion);
+    alert("Calculo realizado")
   };
 
   return (
@@ -204,10 +335,11 @@ export const Simulador = () => {
   
       <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
    
-   
+        
         {" "}
         {/* General */}
-        <div className="bg-[#73b1f3] max-w-[360px] mb-8 rounded-lg">
+        <br/>
+        <div className="bg-[#73b1f3] max-w-[360px] mb-8 rounded-lg max-h-[300px] mt-9" >
           {" "}
          
           {/* Formulario */}
@@ -316,12 +448,14 @@ export const Simulador = () => {
           
         </div>
         <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
-        <canvas ref={chartRef} width="900" height="400"></canvas>
-      </div>
-
+          <canvas ref={barChartRefMigracion} width="700" height="450"></canvas>
+        </div>
       </div>
       <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
-        <canvas ref={barChartRef} width="900" height="900"></canvas>
+        <canvas ref={chartRef} width="650" height="450"></canvas>
+      </div>
+      <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
+      <canvas ref={barChartRef} width="1024" height="700"></canvas>
       </div>
     </>
   );
