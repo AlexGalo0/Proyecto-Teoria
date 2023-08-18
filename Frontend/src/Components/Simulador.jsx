@@ -98,7 +98,7 @@ export const Simulador = () => {
           ],
         },
         options: {
-          responsive: false,
+          responsive: true,
           indexAxis: 'y',
           scales: {
             x: {
@@ -150,19 +150,21 @@ export const Simulador = () => {
       CantidadAnios,
     } = inputValues;
 
-    const poblacionInicial = 1000//parseInt(poblacionInicialData); // población inicial deseada
-    const poblacion = [poblacionInicial];
-    const crecimiento = [];
-    
+    const poblacionInicial = parseInt(poblacionInicialData); // población inicial deseada
+    const crecimiento2 = Math.ceil((parseFloat(TasaNatalidad) - parseFloat(TasaMortalidad) + parseFloat(TasaMigracion)) *
+    poblacionInicial%1000);
+    const crecimiento = [crecimiento2];
+    const pobprueba = poblacionInicial + crecimiento2
+    const poblacion = [pobprueba];
     for (let i = 1; i <= CantidadAnios; i++) {
       const nuevoCrecimiento =
         Math.ceil((parseFloat(TasaNatalidad) - parseFloat(TasaMortalidad) + parseFloat(TasaMigracion)) *
-        poblacion[i - 1]);
+        poblacion[i-1]%1000);
     
       crecimiento.push(nuevoCrecimiento);
-      if (i < CantidadAnios) {
-        poblacion.push(poblacion[i - 1] + nuevoCrecimiento);
-      }
+       if (i < CantidadAnios) {
+         poblacion.push(poblacion[i - 1] + nuevoCrecimiento);
+       }
     }
     
     
@@ -448,15 +450,16 @@ export const Simulador = () => {
           
         </div>
         <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
-          <canvas ref={barChartRefMigracion} width="700" height="450"></canvas>
+          <canvas ref={barChartRefMigracion} width="600" height="450"></canvas>
         </div>
-      </div>
-      <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
-        <canvas ref={chartRef} width="650" height="450"></canvas>
       </div>
       <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
       <canvas ref={barChartRef} width="1024" height="700"></canvas>
       </div>
+      <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
+        <canvas ref={chartRef} width="650" height="450"></canvas>
+      </div>
+      
     </>
   );
 };
