@@ -24,7 +24,7 @@ A fines de 2019, había un estimado de 4,8 millones de migrantes venezolanos, in
 			</div>
             <div className='flex justify-center pt-5'>
 				<h1 className='text-4xl font-bold'>
-                Evolución de la Población Hondureña Nacida en el Extranjero entre el 2005 y el 2016
+                Evolución de la Población en América Latina y El Caribe
 				</h1>
 			</div>
 
