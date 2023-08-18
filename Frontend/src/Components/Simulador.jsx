@@ -1,6 +1,7 @@
 import { useState, useEffect,useRef } from "react";
 import Chart from 'chart.js/auto';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 
 export const Simulador = () => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -19,6 +20,11 @@ export const Simulador = () => {
   const [migracionData, setMigracionData] = useState([]);
   const barChartRefMigracion = useRef(null);
   const [barChartInstanceMigracion, setBarChartInstanceMigracion] = useState(null);
+  const [ejecutarcalculos, setEjecutarCalculos] = useState(true);
+
+  const EjecutarCalculos = () => {
+    setEjecutarCalculos(!ejecutarcalculos);
+  };
   
   const SelectChange = async (event) => {
     const value = event.target.value;
@@ -101,19 +107,20 @@ export const Simulador = () => {
           responsive: true,
           indexAxis: 'y',
           scales: {
-            x: {
+            y: {
               display: true,
               title: {
                 display: true,
                 text: "Países",
               },
             },
-            y: {
+            x: {
               display: true,
               title: {
                 display: true,
                 text: "Migración",
               },
+              
             },
 
           },
@@ -315,9 +322,23 @@ export const Simulador = () => {
     setChartInstance(newChartInstance);
     console.log("Crecimiento:", crecimiento);
     console.log("Población:", poblacion);
-    alert("Calculo realizado")
+    
   };
 
+  useEffect(() => {
+    if (ejecutarcalculos) {
+    if (
+      inputValues.TasaNatalidad !== "" &&
+      inputValues.TasaMortalidad !== "" &&
+      inputValues.TasaMigracion !== "" &&
+      inputValues.CantidadAnios !== ""
+    ) {
+      Calculos(); // Llama a la función Calculos para realizar los cálculos
+      setEjecutarCalculos(true);
+    }
+  }
+  }, [inputValues,ejecutarcalculos]);
+  
   return (
     <>
       <div className="grid-rows-2">
@@ -341,13 +362,13 @@ export const Simulador = () => {
         {" "}
         {/* General */}
         <br/>
-        <div className="bg-[#73b1f3] max-w-[360px] mb-8 rounded-lg max-h-[300px] mt-9" >
+        <div className="bg-[#73b1f3] max-w-[650px] mb-8 rounded-lg max-h-[800px] mt-9" >
           {" "}
          
           {/* Formulario */}
           <form>
             <div className="pt-6 px-2 ">
-              <div className="flex justify-between ">
+              <div className="flex justify-between mt-10 p-2">
                 <label
                   htmlFor="selectOption"
                   className="font-bold text-white text-xl"
@@ -370,7 +391,7 @@ export const Simulador = () => {
                 </select>
               </div>
 
-              <div className="flex justify-between pt-4">
+              <div className="flex justify-between pt-4 mt-10 p-2 ">
                 <label
                   htmlFor="TasaNatalidad"
                   className="font-bold text-white text-xl"
@@ -387,7 +408,7 @@ export const Simulador = () => {
                   placeholder="1.2"
                 />
               </div>
-              <div className="flex justify-between pt-4">
+              <div className="flex justify-between pt-4 mt-10 p-2">
                 <label
                   htmlFor="TasaMortalidad"
                   className="font-bold text-white text-xl"
@@ -404,7 +425,7 @@ export const Simulador = () => {
                   placeholder="0.7"
                 />
               </div>
-              <div className="flex justify-between pt-4">
+              <div className="flex justify-between pt-4 mt-10 p-2">
                 <label
                   htmlFor="TasaMigracion"
                   className="font-bold text-white text-xl"
@@ -421,7 +442,7 @@ export const Simulador = () => {
                   placeholder="0.31"
                 />
               </div>
-              <div className="flex justify-between pt-4 pb-3  ">
+              <div className="flex justify-between pt-4 pb-3  mt-10 p-2">
                 <label
                   htmlFor="CantidadAnios"
                   className="font-bold text-white text-xl"
@@ -438,26 +459,29 @@ export const Simulador = () => {
                   placeholder="5"
                 />
               </div>
-              { <div className="flex  justify-end">
-                <button type="button" onClick={Calculos} className="bg-cyan-100 mb-5 rounded">
-                  Calcular Crecimiento
-                </button>
-              </div>
-               }
+
+              <div className="flex justify-between pt-4 pb-3  mt-10 p-2">
+
+              <button type="button" onClick={EjecutarCalculos}>
+                <FontAwesomeIcon icon={ejecutarcalculos ? faPause : faPlay} />
+                {ejecutarcalculos ? " Pausar Simulación" : " Activar Simulación"}
+              </button>
+              
+             </div>
             </div>
             
           </form>
           
         </div>
         <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
-          <canvas ref={barChartRefMigracion} width="600" height="450"></canvas>
+          <canvas ref={barChartRefMigracion} width="700" height="800"></canvas>
         </div>
       </div>
       <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
-      <canvas ref={barChartRef} width="1024" height="700"></canvas>
+      <canvas ref={barChartRef} width="750" height="500"></canvas>
       </div>
       <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around ">
-        <canvas ref={chartRef} width="650" height="450"></canvas>
+        <canvas ref={chartRef} width="750" height="500"></canvas>
       </div>
       
     </>
