@@ -370,7 +370,7 @@ export const Simulador = () => {
         </div>
       </div>
 
-      <div className="ml-[50px] mr-[50px] mb-[50px]  ">
+      <div className="ml-[50px] mr-[50px] mb-[50px]">
         {/* General */}
         <div className="bg-[#C5DFF8] flex justify-center mt-4 pt-4 ">
           {/* Formulario */}
