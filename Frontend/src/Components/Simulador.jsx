@@ -370,141 +370,147 @@ export const Simulador = () => {
         </div>
       </div>
 
-      {/* General */}
-      <div className="bg-[#C5DFF8] flex justify-center mt-4 pt-4 ">
-        {/* Formulario */}
-        <div className=" ml-[110px] mt-10 ">
-          <div className="bg-[#426fb3]  rounded-lg min-w-[340px] ">
-            {" "}
-            <form>
-              <h1 className="flex justify-center text-2xl text-white font-bold pt-3">
-                Inicio
-              </h1>
-              <div className="px-2 ">
-                <div className="flex justify-between pt-2">
-                  <label
-                    htmlFor="selectOption"
-                    className="font-bold text-white text-xl"
-                  >
-                    Selecciona el país:
-                  </label>
-                  <select
-                    className="rounded text-center"
-                    id="selectOption"
-                    name="selectOption"
-                    value={selectedOption}
-                    onChange={SelectChange}
-                  >
-                    <option value="">Países</option>
-                    {paises.map((pais, index) => (
-                      <option key={index} value={pais}>
-                        {pais}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+      <div className="ml-[50px] mr-[50px] mb-[50px]  ">
+        {/* General */}
+        <div className="bg-[#C5DFF8] flex justify-center mt-4 pt-4 ">
+          {/* Formulario */}
+          <div className=" ml-[110px] mt-10 ">
+            <div className="bg-[#426fb3]  rounded-lg min-w-[340px] ">
+              {" "}
+              <form>
+                <h1 className="flex justify-center text-2xl text-white font-bold pt-3">
+                  Inicio
+                </h1>
+                <div className="px-2 ">
+                  <div className="flex justify-between pt-2">
+                    <label
+                      htmlFor="selectOption"
+                      className="font-bold text-white text-xl"
+                    >
+                      Selecciona el país:
+                    </label>
+                    <select
+                      className="rounded text-center"
+                      id="selectOption"
+                      name="selectOption"
+                      value={selectedOption}
+                      onChange={SelectChange}
+                    >
+                      <option value="">Países</option>
+                      {paises.map((pais, index) => (
+                        <option key={index} value={pais}>
+                          {pais}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
-                <div className="flex justify-between pt-3 ">
-                  <label
-                    htmlFor="TasaNatalidad"
-                    className="font-bold text-white text-xl"
-                  >
-                    Tasa natalidad:
-                  </label>
-                  <input
-                    type="number"
-                    id="TasaNatalidad"
-                    name="TasaNatalidad"
-                    value={inputValues.TasaNatalidad}
-                    onChange={InputChange}
-                    className="w-[100px] rounded text-center"
-                    placeholder="1.2"
-                  />
-                </div>
-                <div className="flex justify-between pt-3">
-                  <label
-                    htmlFor="TasaMortalidad"
-                    className="font-bold text-white text-xl"
-                  >
-                    Tasa mortalidad:
-                  </label>
-                  <input
-                    type="number"
-                    id="TasaMortalidad"
-                    name="TasaMortalidad"
-                    value={inputValues.TasaMortalidad}
-                    onChange={InputChange}
-                    className="w-[100px] rounded text-center"
-                    placeholder="0.7"
-                  />
-                </div>
-                <div className="flex justify-between pt-3">
-                  <label
-                    htmlFor="TasaMigracion"
-                    className="font-bold text-white text-xl"
-                  >
-                    Tasa de migración:
-                  </label>
-                  <input
-                    type="number"
-                    id="TasaMigracion"
-                    name="TasaMigracion"
-                    value={inputValues.TasaMigracion}
-                    onChange={InputChange}
-                    className="w-[100px] rounded text-center"
-                    placeholder="0.31"
-                  />
-                </div>
-                <div className="flex justify-between pt-3">
-                  <label
-                    htmlFor="CantidadAnios"
-                    className="font-bold text-white text-xl"
-                  >
-                    Cantidad de años:
-                  </label>
-                  <input
-                    type="number"
-                    id="CantidadAnios"
-                    name="CantidadAnios"
-                    value={inputValues.CantidadAnios}
-                    onChange={InputChange}
-                    className="w-[100px] rounded text-center"
-                    placeholder="5"
-                  />
-                </div>
-
-                <div className="flex justify-center pt-3">
-                  <button
-                    type="button"
-                    onClick={EjecutarCalculos}
-                    className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
-                  >
-                    <FontAwesomeIcon
-                      icon={ejecutarcalculos ? faPause : faPlay}
+                  <div className="flex justify-between pt-3 ">
+                    <label
+                      htmlFor="TasaNatalidad"
+                      className="font-bold text-white text-xl"
+                    >
+                      Tasa natalidad:
+                    </label>
+                    <input
+                      type="number"
+                      id="TasaNatalidad"
+                      name="TasaNatalidad"
+                      value={inputValues.TasaNatalidad}
+                      onChange={InputChange}
+                      className="w-[100px] rounded text-center"
+                      placeholder="1.2"
                     />
-                    {ejecutarcalculos
-                      ? "  Pausar Simulación"
-                      : "  Activar Simulación"}
-                  </button>
+                  </div>
+                  <div className="flex justify-between pt-3">
+                    <label
+                      htmlFor="TasaMortalidad"
+                      className="font-bold text-white text-xl"
+                    >
+                      Tasa mortalidad:
+                    </label>
+                    <input
+                      type="number"
+                      id="TasaMortalidad"
+                      name="TasaMortalidad"
+                      value={inputValues.TasaMortalidad}
+                      onChange={InputChange}
+                      className="w-[100px] rounded text-center"
+                      placeholder="0.7"
+                    />
+                  </div>
+                  <div className="flex justify-between pt-3">
+                    <label
+                      htmlFor="TasaMigracion"
+                      className="font-bold text-white text-xl"
+                    >
+                      Tasa de migración:
+                    </label>
+                    <input
+                      type="number"
+                      id="TasaMigracion"
+                      name="TasaMigracion"
+                      value={inputValues.TasaMigracion}
+                      onChange={InputChange}
+                      className="w-[100px] rounded text-center"
+                      placeholder="0.31"
+                    />
+                  </div>
+                  <div className="flex justify-between pt-3">
+                    <label
+                      htmlFor="CantidadAnios"
+                      className="font-bold text-white text-xl"
+                    >
+                      Cantidad de años:
+                    </label>
+                    <input
+                      type="number"
+                      id="CantidadAnios"
+                      name="CantidadAnios"
+                      value={inputValues.CantidadAnios}
+                      onChange={InputChange}
+                      className="w-[100px] rounded text-center"
+                      placeholder="5"
+                    />
+                  </div>
+
+                  <div className="flex justify-center pt-3">
+                    <button
+                      type="button"
+                      onClick={EjecutarCalculos}
+                      className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
+                    >
+                      <FontAwesomeIcon
+                        icon={ejecutarcalculos ? faPause : faPlay}
+                      />
+                      {ejecutarcalculos
+                        ? "  Pausar Simulación"
+                        : "  Activar Simulación"}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
+          </div>
+
+          <div className="bg-[#C5DFF8]  ml-[320px] flex justify-around max-h-[600px] ">
+            <canvas ref={chartRef} width="750" height="600"></canvas>
           </div>
         </div>
 
-        <div className="bg-[#C5DFF8]  ml-[320px] flex justify-around max-h-[600px] ">
-          <canvas ref={chartRef} width="750" height="600"></canvas>
-        </div>
-      </div>
+        {/* Siguientes dos graficos */}
 
-      {/* Siguientes dos graficos */}
-
-      <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around  max-h-[700px] rounded-lg ">
-        <div className="border-radius: 1.5rem ">
-          <canvas ref={barChartRef} width="750" height="500"></canvas>
-        </div>
-        <div className=" pt-8 pl-9 flex justify-evenly border-radius: 1.5rem  ">
-          <canvas ref={barChartRefMigracion} width="900" height="800"></canvas>
+        <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around  max-h-[700px] rounded-lg ">
+          <div className="border-radius: 1.5rem ">
+            <canvas ref={barChartRef} width="750" height="500"></canvas>
+          </div>
+          <div className=" pt-8 pl-9 flex justify-evenly border-radius: 1.5rem  ">
+            <canvas
+              ref={barChartRefMigracion}
+              width="900"
+              height="800"
+            ></canvas>
+          </div>
         </div>
       </div>
     </>
