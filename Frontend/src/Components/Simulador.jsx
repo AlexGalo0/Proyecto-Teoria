@@ -58,7 +58,7 @@ export const Simulador = () => {
 
   useEffect(() => {
     // Realizar una solicitud a tu API para obtener los nombres de los países
-    fetch("http://localhost:8000/paises")
+    fetch("http://localhost:8080/paises")
       .then((response) => response.json())
       .then((data) => {
         // Supongamos que el servidor responde con un array de nombres de países
@@ -68,7 +68,7 @@ export const Simulador = () => {
         console.error("Error fetching countries:", error);
       });
 
-    fetch("http://localhost:8000/migracion")
+    fetch("http://localhost:8080/migracion")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -180,7 +180,7 @@ export const Simulador = () => {
       chartInstance.destroy();
     }
 
-    fetch("http://localhost:8000/poblacion", {
+    fetch("http://localhost:8080/poblacion", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -345,8 +345,8 @@ export const Simulador = () => {
   return (
     <>
       {/* Header */}
-      <div className="grid-rows-2">
-        <div className="flex justify-center pt-4">
+      <div className="grid-rows-2 ">
+        <div className="flex justify-center pt-4 ">
           <h1 className="font-bold text-3xl text-[#7895CB] ">
             Instrucciones de Uso
           </h1>
@@ -371,140 +371,140 @@ export const Simulador = () => {
       </div>
 
       {/* General */}
-        <div className="bg-[#C5DFF8] flex justify-center mt-4 pt-4">
+      <div className="bg-[#C5DFF8] flex justify-center mt-4 pt-4 ">
         {/* Formulario */}
-        <div className=" ml-[110px] ">
-
-        <div className="bg-[#426fb3]  rounded-lg min-w-[340px] ">
-          {" "}
-          <form>
-            <h1 className="flex justify-center text-2xl text-white font-bold pt-3">
-              Inicio
-            </h1>
-            <div className="px-2 ">
-              <div className="flex justify-between pt-2">
-                <label
-                  htmlFor="selectOption"
-                  className="font-bold text-white text-xl"
+        <div className=" ml-[110px] mt-10 ">
+          <div className="bg-[#426fb3]  rounded-lg min-w-[340px] ">
+            {" "}
+            <form>
+              <h1 className="flex justify-center text-2xl text-white font-bold pt-3">
+                Inicio
+              </h1>
+              <div className="px-2 ">
+                <div className="flex justify-between pt-2">
+                  <label
+                    htmlFor="selectOption"
+                    className="font-bold text-white text-xl"
                   >
-                  Selecciona el país:
-                </label>
-                <select
-                  className="rounded text-center"
-                  id="selectOption"
-                  name="selectOption"
-                  value={selectedOption}
-                  onChange={SelectChange}
+                    Selecciona el país:
+                  </label>
+                  <select
+                    className="rounded text-center"
+                    id="selectOption"
+                    name="selectOption"
+                    value={selectedOption}
+                    onChange={SelectChange}
                   >
-                  <option value="">Países</option>
-                  {paises.map((pais, index) => (
-                    <option key={index} value={pais}>
-                      {pais}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                    <option value="">Países</option>
+                    {paises.map((pais, index) => (
+                      <option key={index} value={pais}>
+                        {pais}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-              <div className="flex justify-between pt-3 ">
-                <label
-                  htmlFor="TasaNatalidad"
-                  className="font-bold text-white text-xl"
-                >
-                  Tasa natalidad:
-                </label>
-                <input
-                  type="number"
-                  id="TasaNatalidad"
-                  name="TasaNatalidad"
-                  value={inputValues.TasaNatalidad}
-                  onChange={InputChange}
-                  className="w-[100px] rounded text-center"
-                  placeholder="1.2"
+                <div className="flex justify-between pt-3 ">
+                  <label
+                    htmlFor="TasaNatalidad"
+                    className="font-bold text-white text-xl"
+                  >
+                    Tasa natalidad:
+                  </label>
+                  <input
+                    type="number"
+                    id="TasaNatalidad"
+                    name="TasaNatalidad"
+                    value={inputValues.TasaNatalidad}
+                    onChange={InputChange}
+                    className="w-[100px] rounded text-center"
+                    placeholder="1.2"
                   />
-              </div>
-              <div className="flex justify-between pt-3">
-                <label
-                  htmlFor="TasaMortalidad"
-                  className="font-bold text-white text-xl"
-                >
-                  Tasa mortalidad:
-                </label>
-                <input
-                  type="number"
-                  id="TasaMortalidad"
-                  name="TasaMortalidad"
-                  value={inputValues.TasaMortalidad}
-                  onChange={InputChange}
-                  className="w-[100px] rounded text-center"
-                  placeholder="0.7"
-                />
-              </div>
-              <div className="flex justify-between pt-3">
-                <label
-                  htmlFor="TasaMigracion"
-                  className="font-bold text-white text-xl"
-                >
-                  Tasa de migración:
-                </label>
-                <input
-                  type="number"
-                  id="TasaMigracion"
-                  name="TasaMigracion"
-                  value={inputValues.TasaMigracion}
-                  onChange={InputChange}
-                  className="w-[100px] rounded text-center"
-                  placeholder="0.31"
-                />
-              </div>
-              <div className="flex justify-between pt-3">
-                <label
-                  htmlFor="CantidadAnios"
-                  className="font-bold text-white text-xl"
+                </div>
+                <div className="flex justify-between pt-3">
+                  <label
+                    htmlFor="TasaMortalidad"
+                    className="font-bold text-white text-xl"
                   >
-                  Cantidad de años:
-                </label>
-                <input
-                  type="number"
-                  id="CantidadAnios"
-                  name="CantidadAnios"
-                  value={inputValues.CantidadAnios}
-                  onChange={InputChange}
-                  className="w-[100px] rounded text-center"
-                  placeholder="5"
+                    Tasa mortalidad:
+                  </label>
+                  <input
+                    type="number"
+                    id="TasaMortalidad"
+                    name="TasaMortalidad"
+                    value={inputValues.TasaMortalidad}
+                    onChange={InputChange}
+                    className="w-[100px] rounded text-center"
+                    placeholder="0.7"
                   />
-              </div>
+                </div>
+                <div className="flex justify-between pt-3">
+                  <label
+                    htmlFor="TasaMigracion"
+                    className="font-bold text-white text-xl"
+                  >
+                    Tasa de migración:
+                  </label>
+                  <input
+                    type="number"
+                    id="TasaMigracion"
+                    name="TasaMigracion"
+                    value={inputValues.TasaMigracion}
+                    onChange={InputChange}
+                    className="w-[100px] rounded text-center"
+                    placeholder="0.31"
+                  />
+                </div>
+                <div className="flex justify-between pt-3">
+                  <label
+                    htmlFor="CantidadAnios"
+                    className="font-bold text-white text-xl"
+                  >
+                    Cantidad de años:
+                  </label>
+                  <input
+                    type="number"
+                    id="CantidadAnios"
+                    name="CantidadAnios"
+                    value={inputValues.CantidadAnios}
+                    onChange={InputChange}
+                    className="w-[100px] rounded text-center"
+                    placeholder="5"
+                  />
+                </div>
 
-              <div className="flex justify-center pt-3">
-                <button
-                  type="button"
-                  onClick={EjecutarCalculos}
-                  className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  <FontAwesomeIcon icon={ejecutarcalculos ? faPause : faPlay} />
-                  {ejecutarcalculos
-                    ? "  Pausar Simulación"
-                    : "  Activar Simulación"}
-                </button>
+                <div className="flex justify-center pt-3">
+                  <button
+                    type="button"
+                    onClick={EjecutarCalculos}
+                    className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
+                  >
+                    <FontAwesomeIcon
+                      icon={ejecutarcalculos ? faPause : faPlay}
+                    />
+                    {ejecutarcalculos
+                      ? "  Pausar Simulación"
+                      : "  Activar Simulación"}
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
-                  </div>
+            </form>
+          </div>
         </div>
 
-        <div className="bg-[#accdeff4]  ml-[320px] flex justify-around max-h-[600px] ">
+        <div className="bg-[#C5DFF8]  ml-[320px] flex justify-around max-h-[600px] ">
           <canvas ref={chartRef} width="750" height="600"></canvas>
         </div>
       </div>
 
       {/* Siguientes dos graficos */}
 
-      <div className="flex justify-between bg-[#C5DFF8] ">
-        <div className="bg-[#accdeff4] pt-8 pl-9 flex justify-around  max-h-[550px]">
+      <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around  max-h-[700px] rounded-lg ">
+        <div className="border-radius: 1.5rem ">
           <canvas ref={barChartRef} width="750" height="500"></canvas>
         </div>
-
-        <div className="bg-[#C5DFF8] pt-8 pl-9 flex justify-around  ">
-          <canvas ref={barChartRefMigracion} width="700" height="800"></canvas>
+        <div className=" pt-8 pl-9 flex justify-evenly border-radius: 1.5rem  ">
+          <canvas ref={barChartRefMigracion} width="900" height="800"></canvas>
         </div>
       </div>
     </>
