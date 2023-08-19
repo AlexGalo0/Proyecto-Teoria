@@ -351,7 +351,7 @@ export const Simulador = () => {
           <p className="font-bold px-8 pb-2">
           El uso de este simulador es muy sencillo, una vez seleccionas el país de Latinoamérica que quieres calcular su crecimiento poblacional y migración, te traerá datos actuales de su tasa de natalidad, tasa de mortalidad y tasa de migración.  Estas tasas pueden ser manipuladas en sus valores para poder calcular otras proyecciones en la cantidad de años a futuro que desees y lo que hará será mostrarte una gráfica con estas proyecciones en tiempo real mientras vas cambiando sus valores.<br/>
           <p 
-           >(Los gráficos mostrados y las tasas son por cada 1,000 habitantes)</p>
+           >Nota: (Los gráficos mostrados y las tasas son por cada 1,000 habitantes)</p>
           </p>
         </div>
       </div>
